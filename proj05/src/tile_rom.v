@@ -4,7 +4,7 @@
 // TILE ROM  (= "Pattern Table" ใน NES)
 // ---------------------------------------------------------------------
 // เก็บ "หน้าตา" ของ tile ทั้ง 256 แบบ
-//   ไฟล์ mariobg256j.mem เป็นรูปขนาด 256x256 px  (6-bit สี RRGGBB)
+//   ไฟล์ beach_tiles.mem (สร้างจากรูป PNG ด้วย png2tiles.py) เป็นรูป 256x256 px  (6-bit สี RRGGBB)
 //   แบ่งเป็นตาราง 16x16 ช่อง  ช่องละ 16x16 px  -> 256 tiles
 //
 //   tile_id 8 bit = [7:4] แถวในรูป , [3:0] คอลัมน์ในรูป
@@ -24,7 +24,7 @@ module tile_rom (
 );
   reg [5:0] mem [0:256*256-1];  // 65536 pixel
 
-  initial $readmemh("../data/mariobg256j.mem", mem);
+  initial $readmemh("../data/beach_tiles.mem", mem);
 
   assign color = mem[{tile_id[7:4], py, tile_id[3:0], px}];
 endmodule
