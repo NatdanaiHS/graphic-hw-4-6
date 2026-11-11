@@ -20,10 +20,7 @@ project:
     - "hsync_generator.v"
     - "map_rom.v"
     - "tile_rom.v"
-    - "sprite_box.v"
-    - "mario_rom.v"
-    - "coin_rom.v"
-    - "goomba_rom.v"
+    - "sprite.v"
     - "ppu.v"
     - "project.v"
 

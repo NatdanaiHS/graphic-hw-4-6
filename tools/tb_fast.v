@@ -20,7 +20,7 @@ module tb;
       $display("after %0d ui=%0d: x=%0d y=%0d state=%0d score=%0d coins=%b goomba_alive=%0d gx=%0d", n,u,
         dut.mario_x, dut.mario_y, dut.game_state, dut.score, dut.coin_show, dut.goomba_alive, dut.goomba_x);
 `else
-      $display("after %0d ui=%0d: x=%0d", n,u, dut.mario_x);
+      $display("after %0d ui=%0d", n,u);
 `endif
     end
     release dut.new_frame; pulse=0;
