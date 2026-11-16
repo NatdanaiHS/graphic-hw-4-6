@@ -1,6 +1,8 @@
-# HW6: Coin Run (Game using PPU)
+# HW6: Beach Run (Game using PPU)
 
-Uses the HW5 PPU unchanged. Collect all 3 floating coins to win (green border). Touching the Goomba from the side loses (red border); jumping on it removes it and scores a point. The score shows as yellow squares. Press reset to restart.
+Uses the HW5 PPU unchanged (same sunset beach background and sprites). Collect all 3 floating
+beach balls to win (green border). Touching the crab from the side loses (red border);
+jumping on it removes it and scores a point. The score shows as yellow squares. Press reset to restart.
 
 | Playing | Lose | Win |
 |---|---|---|
@@ -12,4 +14,5 @@ Uses the HW5 PPU unchanged. Collect all 3 floating coins to win (green border). 
 - `ui_in[2]`: jump
 
 ## Files
-Same PPU files as HW5. The game logic is only in `project.v`. Explanation in Thai: [../GUIDE_HW4-6.md](../GUIDE_HW4-6.md)
+Same PPU files as HW5 (`sprite.v`, `ppu.v`, `map_rom.v`, `tile_rom.v`). The game logic is only in `project.v`.
+Explanation in Thai: [../GUIDE_HW4-6.md](../GUIDE_HW4-6.md)

@@ -17,8 +17,8 @@ module tb;
       r=$fscanf(sf,"%d %d\n",n,u); ui=u;
       for (i=0;i<n;i=i+1) begin @(negedge clk) pulse=1; @(negedge clk) pulse=0; repeat(2) @(negedge clk); end
 `ifdef GAME
-      $display("after %0d ui=%0d: x=%0d y=%0d state=%0d score=%0d coins=%b goomba_alive=%0d gx=%0d", n,u,
-        dut.mario_x, dut.mario_y, dut.game_state, dut.score, dut.coin_show, dut.goomba_alive, dut.goomba_x);
+      $display("after %0d ui=%0d: x=%0d y=%0d state=%0d score=%0d balls=%b crab_alive=%0d cx=%0d", n,u,
+        dut.player_x, dut.player_y, dut.game_state, dut.score, dut.ball_show, dut.crab_alive, dut.crab_x);
 `else
       $display("after %0d ui=%0d", n,u);
 `endif

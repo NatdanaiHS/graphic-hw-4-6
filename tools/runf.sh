@@ -6,9 +6,9 @@ S=$(cd "$(dirname "$0")"; pwd)   # folder ของ script นี้
 SC=$(cd "$(dirname "$2")"; pwd)/$(basename "$2")
 cd "$1/src" || exit 1
 D=""; [ -n "$4" ] && D="-DGAME"
-/c/msys64/ucrt64/bin/iverilog -g2012 $D -o "$S/simf.vvp" "$S/tb_fast.v" *.v 2>&1 | grep -v -i "warning\|Pruning" 
+iverilog -g2012 $D -o "$S/simf.vvp" "$S/tb_fast.v" *.v 2>&1 | grep -v -i "warning\|Pruning" 
 cp "$SC" scenario.txt
-/c/msys64/ucrt64/bin/vvp -n "$S/simf.vvp" | grep after
+vvp -n "$S/simf.vvp" | grep after
 python -I -c "
 import sys
 from PIL import Image
