@@ -1,18 +1,15 @@
-# HW6: Beach Run (Game using PPU)
+# HW6 - Beach Run
 
-Uses the HW5 PPU unchanged (same sunset beach background and sprites). Collect all 3 floating
-beach balls to win (green border). Touching the crab from the side loses (red border);
-jumping on it removes it and scores a point. The score shows as yellow squares. Press reset to restart.
+เกมเก็บลูกบอลบนชายหาด ใช้ PPU จาก HW5 โดยไม่แก้ เปลี่ยนแค่ `project.v`
 
-| Playing | Lose | Win |
+[เปิดใน vga-playground](https://vga-playground.com/?repo=https%3A%2F%2Fgithub.com%2FNatdanaiHS%2Fgraphic-hw-4-6&ref=main%2Fproj06)
+
+| เล่นอยู่ | แพ้ | ชนะ |
 |---|---|---|
 | ![](preview_play.png) | ![](preview_lose.png) | ![](preview_win.png) |
 
-## Controls
-- `ui_in[0]`: left
-- `ui_in[1]`: right
-- `ui_in[2]`: jump
+ปุ่ม: `ui_in[0]` ซ้าย, `ui_in[1]` ขวา, `ui_in[2]` กระโดด
 
-## Files
-Same PPU files as HW5 (`sprite.v`, `ppu.v`, `map_rom.v`, `tile_rom.v`). The game logic is only in `project.v`.
-Explanation in Thai: [../GUIDE_HW4-6.md](../GUIDE_HW4-6.md)
+เก็บลูกบอลครบ 3 ลูกชนะ ชนปูด้านข้างแพ้ กระโดดเหยียบปูได้แต้ม
+
+อธิบายวิธีทำอยู่ใน [README หลัก](../README.md#hw6---beach-run-game-using-ppu)

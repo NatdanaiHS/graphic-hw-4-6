@@ -1,24 +1,13 @@
-# HW5: Simple PPU – Beach Walk
+# HW5 - PPU
 
-A small Picture Processing Unit built on top of HW4: the two scrolling background
-layers plus a sprite layer (a player, a crab and 3 beach balls, all my own pixel art).
-It supports flip, animation, show/hide, a transparency key (`3F`), layer priority,
-and a camera that follows the player with parallax.
+PPU แบบง่าย พื้นหลัง 2 ชั้นจาก HW4 + sprite 5 ตัว (คน ปู ลูกบอล 3 ลูก) กล้องเลื่อนตามคน
+
+[เปิดใน vga-playground](https://vga-playground.com/?repo=https%3A%2F%2Fgithub.com%2FNatdanaiHS%2Fgraphic-hw-4-6&ref=main%2Fproj05)
 
 ![preview](preview.png)
 
-## Controls
-- `ui_in[0]`: walk left
-- `ui_in[1]`: walk right
+ปุ่ม: `ui_in[0]` ซ้าย, `ui_in[1]` ขวา
 
-## Sprite sheet
-`art/sprites.png` (8 cells of 32x32, white = transparent) → `python png2sprites.py` → `data/sprites.mem`
+รูป sprite อยู่ที่ `art/sprites.png` แปลงด้วย `python png2sprites.py` ส่วนพื้นหลังใช้ไฟล์จาก HW4
 
-![sprites](art/sprites.png)
-
-The background data (`beach_tiles.mem`, `beach_map.mem`) comes from HW4 ([../proj04](../proj04)).
-
-## Files (read in this order)
-`src/sprite.v` → `src/ppu.v` → `src/project.v` (`map_rom.v`, `tile_rom.v` are the same as HW4).
-
-Explanation in Thai: [../GUIDE_HW4-6.md](../GUIDE_HW4-6.md)
+อธิบายวิธีทำอยู่ใน [README หลัก](../README.md#hw5---ppu)

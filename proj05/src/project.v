@@ -1,21 +1,5 @@
 `default_nettype none
 
-// =====================================================================
-// HW5 : PPU demo - เดินเล่นชายหาด
-// ---------------------------------------------------------------------
-// แบ่งงานเป็น 2 ส่วนเหมือนเครื่อง NES:
-//   - ppu.v      = "การ์ดจอ"  วาด background + sprite ตามข้อมูลที่ได้รับ
-//   - project.v  = "ตัวเกม"   (ทำหน้าที่แทน CPU) อัปเดตตำแหน่ง/ท่า ทุกเฟรม
-//                  แล้วส่งค่าให้ PPU (ค่าพวกนี้คือ OAM)
-//
-// สิ่งที่ demo นี้โชว์ (ทดสอบว่า PPU ทำงานครบ):
-//   - คนเดินซ้าย/ขวา + animation เดิน + หันหน้าตามทิศ (flip)
-//   - กล้องเลื่อนตามคน และ background เลื่อนแบบ parallax
-//   - ปูเดินไปกลับเอง, ลูกบอลหมุน (animation)
-//   - คนบังปู/ลูกบอล/ต้นมะพร้าวได้ (priority) และสีขาวโปร่งใส (transparency)
-//
-// ปุ่ม:  ui_in[0] = ซ้าย   ui_in[1] = ขวา
-// =====================================================================
 module tt_um_vga_example (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
@@ -27,7 +11,6 @@ module tt_um_vga_example (
     input  wire       rst_n
 );
 
-  // ---------------- VGA ----------------
   wire hsync, vsync, video_active;
   wire [9:0] pix_x, pix_y;
   reg  [5:0] color;
@@ -43,21 +26,19 @@ module tt_um_vga_example (
       .hpos(pix_x), .vpos(pix_y)
   );
 
-  wire new_frame = (pix_x == 0) && (pix_y == 480);   // 1 ครั้งต่อเฟรม
+  wire new_frame = (pix_x == 0) && (pix_y == 480);
 
-  // ---------------- OAM : ข้อมูลของ sprite ----------------
-  localparam [9:0]  SAND_Y   = 384;       // sprite สูง 32 -> เท้าอยู่ที่ y=416 (บนทราย)
-  localparam [10:0] CRAB_MIN = 700;       // ปูเดินไปกลับในช่วงนี้
+  localparam [9:0]  SAND_Y   = 384;
+  localparam [10:0] CRAB_MIN = 700;
   localparam [10:0] CRAB_MAX = 900;
 
   reg [10:0] player_x;
-  reg        player_left;             // หันซ้าย?
+  reg        player_left;
   reg        player_walking;
   reg [10:0] crab_x;
   reg        crab_go_right;
-  reg [7:0]  frame_count;             // นับเฟรมไว้ทำ animation
+  reg [7:0]  frame_count;
 
-  // ---------------- Game logic (ทำทุกเฟรม) ----------------
   always @(posedge clk) begin
     if (!rst_n) begin
       player_x       <= 100;
@@ -69,7 +50,6 @@ module tt_um_vga_example (
     end else if (new_frame) begin
       frame_count <= frame_count + 1;
 
-      // --- คน: ปุ่มซ้าย/ขวา (ห้ามเดินออกนอกแผนที่ 0..1248) ---
       player_walking <= 0;
       if (ui_in[0] && player_x >= 2) begin
         player_x       <= player_x - 2;
@@ -81,7 +61,6 @@ module tt_um_vga_example (
         player_walking <= 1;
       end
 
-      // --- ปู: เดินไปกลับเอง ---
       if (crab_go_right) begin
         if (crab_x >= CRAB_MAX) crab_go_right <= 0;
         else                    crab_x <= crab_x + 1;
@@ -92,18 +71,14 @@ module tt_um_vga_example (
     end
   end
 
-  // ---------------- เลือกท่า (animation) จากตัวนับเฟรม ----------------
-  wire [2:0] player_frame = !player_walking ? 3'd0 :              // ยืน
-                           frame_count[3]  ? 3'd2 : 3'd1;        // เดิน: สลับทุก 8 เฟรม
-  wire [2:0] crab_frame   = frame_count[3]  ? 3'd5 : 3'd4;        // ปู:   สลับทุก 8 เฟรม
-  wire [2:0] ball_frame   = frame_count[4]  ? 3'd7 : 3'd6;        // บอล:  สลับทุก 16 เฟรม
+  wire [2:0] player_frame = !player_walking ? 3'd0 :
+                           frame_count[3]  ? 3'd2 : 3'd1;
+  wire [2:0] crab_frame   = frame_count[3]  ? 3'd5 : 3'd4;
+  wire [2:0] ball_frame   = frame_count[4]  ? 3'd7 : 3'd6;
 
-  // ---------------- กล้อง ----------------
-  // ให้คนอยู่กลางจอ (x=304) แต่กล้องห้ามเลยขอบแผนที่ (0..640)
   wire [10:0] scroll_x = (player_x < 304) ? 11'd0   :
                          (player_x > 944) ? 11'd640 : (player_x - 11'd304);
 
-  // ---------------- PPU ----------------
   wire [5:0] ppu_color;
   ppu ppu1 (
       .pix_x(pix_x), .pix_y(pix_y), .scroll_x(scroll_x),

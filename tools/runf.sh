@@ -1,4 +1,4 @@
-# ทดสอบเกมบนเครื่องตัวเอง (ไม่บังคับ) ต้องมี iverilog + python PIL
+# run a scenario and render one frame (needs iverilog + Pillow)
 # ไฟล์ scenario: แต่ละบรรทัด = "จำนวนเฟรม ค่าui_in"  เช่น "90 2" = กดขวา 90 เฟรม
 # ตัวอย่าง: bash tools/runf.sh proj06 my_scenario.txt out.png GAME
 # usage: runf.sh <projdir> <scenario-file> <out.png> [GAME]
